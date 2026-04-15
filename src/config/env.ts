@@ -2,6 +2,7 @@ import 'dotenv/config';
 import Joi from 'joi';
 
 const envSchema = Joi.object({
+  APP_HOST: Joi.string().default('localhost'),
   APP_PORT: Joi.number().default(3000),
   APP_NAME: Joi.string().required(),
   APP_BASE_PATH: Joi.string().required(),
@@ -35,6 +36,7 @@ if (error) {
 
 export const config = {
   app: {
+    host: envVars.APP_HOST,
     port: envVars.APP_PORT,
     name: envVars.APP_NAME,
     basePath: envVars.APP_BASE_PATH,

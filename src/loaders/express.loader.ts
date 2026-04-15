@@ -27,7 +27,7 @@ export const initExpress = (app: Application) => {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Routes
-  app.use(config.app.basePath + '/api', buildRoutes());
+  app.use('/' + config.app.basePath + '/api', buildRoutes());
 
   // Error Handling (Must be last)
   app.use(errorMiddleware);
