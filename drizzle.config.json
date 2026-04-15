@@ -1,0 +1,8 @@
+{
+  "schema": "./src/infrastructure/database/drizzle/schema.ts",
+  "out": "./src/infrastructure/database/drizzle/migrations",
+  "dialect": "postgresql",
+  "dbCredentials": {
+    "url": "postgres://bt-hrms:Q!w2e3r4t5@140.238.249.73:5432/ebeat-template-2"
+  }
+}
