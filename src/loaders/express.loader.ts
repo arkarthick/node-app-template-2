@@ -6,6 +6,7 @@ import { errorMiddleware } from '../common/middleware/error.middleware';
 import { buildRoutes } from '../routes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from '../docs/swagger';
+import { config } from '../config/env';
 
 export const initExpress = (app: Application) => {
   // Global Middleware
@@ -26,7 +27,7 @@ export const initExpress = (app: Application) => {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Routes
-  app.use('/api', buildRoutes());
+  app.use(config.app.basePath + '/api', buildRoutes());
 
   // Error Handling (Must be last)
   app.use(errorMiddleware);

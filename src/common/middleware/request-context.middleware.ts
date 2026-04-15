@@ -1,6 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { NextFunction, Request, Response } from 'express';
-import { crypto } from 'node:crypto';
 
 export interface RequestContext {
   userId?: string;

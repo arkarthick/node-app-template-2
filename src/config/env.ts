@@ -20,9 +20,9 @@ const envSchema = Joi.object({
 
   BULLMQ_REDIS_URL: Joi.string().optional(),
   RABBITMQ_URL: Joi.string().optional(),
-  CAMUNDA_CLUSTER_ID: Joi.string().optional(),
-  CAMUNDA_CLIENT_ID: Joi.string().optional(),
-  CAMUNDA_CLIENT_SECRET: Joi.string().optional(),
+  CAMUNDA_CLUSTER_ID: Joi.string().optional().empty(''),
+  CAMUNDA_CLIENT_ID: Joi.string().optional().empty(''),
+  CAMUNDA_CLIENT_SECRET: Joi.string().optional().empty(''),
 })
   .unknown()
   .required();

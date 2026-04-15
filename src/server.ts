@@ -13,7 +13,7 @@ const startServer = async () => {
 
     // 3. Start Listening
     const server = app.listen(config.app.port, () => {
-      logger.info({ port: config.app.port, env: config.nodeEnv }, '🚀 Server started and listening');
+      logger.info({ port: config.app.port, env: config.nodeEnv }, 'Server started and listening');
     });
 
     // Graceful Shutdown

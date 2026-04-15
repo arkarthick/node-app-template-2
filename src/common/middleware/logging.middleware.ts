@@ -16,7 +16,7 @@ export const loggingMiddleware = pinoHttp({
     }
     return 'info';
   },
-  customSuccessMessage: function (req, res) {
+  customSuccessMessage: function (_req, res) {
     if (res.statusCode === 404) {
       return 'resource not found';
     }

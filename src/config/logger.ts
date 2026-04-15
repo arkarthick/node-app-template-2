@@ -1,15 +1,16 @@
-import pino from 'pino';
+import pino, { LoggerOptions } from 'pino';
 import { config } from './env';
 
-export const logger = pino({
+const pinoOptions: LoggerOptions = {
   level: config.logLevel,
-  transport:
-    config.nodeEnv === 'development'
-      ? {
-          target: 'pino-pretty',
-          options: {
-            colorize: true,
-          },
-        }
-      : undefined,
-});
+  ...(config.nodeEnv === 'development' && {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        colorize: true,
+      },
+    },
+  }),
+};
+
+export const logger = pino(pinoOptions);
