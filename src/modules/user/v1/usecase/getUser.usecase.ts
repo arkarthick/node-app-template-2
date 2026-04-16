@@ -1,6 +1,7 @@
 import { UserDTO } from '../user.dto';
 import { UserRepository } from '../user.repository';
 import { AppError } from '../../../../common/middleware/error.middleware';
+import { ResponseCode } from '../../../../common/constants/response-codes';
 
 export class GetUserUseCase {
   constructor(private userRepository: UserRepository) { }
@@ -10,6 +11,7 @@ export class GetUserUseCase {
     if (!user) {
       const error: AppError = new Error('User not found');
       error.statusCode = 404;
+      error.code = ResponseCode.NOT_FOUND;
       throw error;
     }
 

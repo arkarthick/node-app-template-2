@@ -23,15 +23,11 @@ export const errorMiddleware = (
     logger.error(err, 'Unhandled Exception');
   }
 
-  const data = {
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-    ...(err.details && { details: err.details }),
-  };
-
-  return ApiResponse.send(res, {
+  return ApiResponse.error(res, {
     statusCode,
     code,
     message,
-    data,
+    data: err.details,
+    stack: err.stack,
   });
 };

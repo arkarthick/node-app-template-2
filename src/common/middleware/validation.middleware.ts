@@ -28,9 +28,9 @@ export const validate = (schema: Schema) => {
     }
 
     // Replace req data with validated data (stripped of unknown fields)
-    req.body = value.body;
-    req.query = value.query;
-    req.params = value.params;
+    // req.body = value.body;
+    // req.query = value.query;
+    // req.params = value.params;
 
     next();
   };

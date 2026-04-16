@@ -1,5 +1,6 @@
 import { Response } from 'express';
 import { ResponseCode } from '../constants/response-codes';
+import { config } from '../../config/env';
 
 export interface ApiResponseOptions<T> {
   statusCode: number;
@@ -11,7 +12,7 @@ export interface ApiResponseOptions<T> {
 export class ApiResponse {
   static send<T>(res: Response, options: ApiResponseOptions<T>) {
     const { statusCode, code, message, data } = options;
-    
+
     // Determine status string based on status code
     const status = statusCode >= 200 && statusCode < 300 ? 'success' : 'error';
 
@@ -34,13 +35,14 @@ export class ApiResponse {
     });
   }
 
-  static error(res: Response, options: { message: string; statusCode?: number; code?: ResponseCode | string; data?: any }) {
+  static error(res: Response, options: { message: string; statusCode?: number; code?: ResponseCode | string; data?: any, stack?: any }) {
     const { message, statusCode = 500, code = ResponseCode.INTERNAL_SERVER_ERROR, data } = options;
     return this.send(res, {
       statusCode,
       code,
       message,
       data,
+      ...(config.nodeEnv === 'development' && { stack: options.stack }),
     });
   }
 }
