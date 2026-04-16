@@ -87,9 +87,10 @@ ApiResponse.error(res, {
 3. Request Context (`requestContextMiddleware`): Generates `requestId` and stores context in `AsyncLocalStorage`.
 4. Logging (`loggingMiddleware`): Logs incoming requests and response times.
 5. API Encryption (`encryptionMiddleware`): Handles transparent request decryption and response encryption (if enabled).
-6. Routes: Version-prefixed routes.
-7. 404 Handler: Catches unknown routes and returns a structured "NOT_FOUND" response.
-8. Error Handler (`errorMiddleware`): Catches all exceptions and returns a structured "INTERNAL_SERVER_ERROR".
+6. CSRF Protection (`csrfProtection`): Protects against Cross-Site Request Forgery (if enabled).
+7. Routes: Version-prefixed routes.
+8. 404 Handler: Catches unknown routes and returns a structured "NOT_FOUND" response.
+9. Error Handler (`errorMiddleware`): Catches all exceptions and returns a structured "INTERNAL_SERVER_ERROR".
 
 ### Request Validation
 Use the `validate` middleware located in `src/common/middleware/validation.middleware.ts` with Joi schemas.
@@ -118,6 +119,26 @@ import { CryptoUtil } from '../common/utils/crypto.util';
 const encrypted = CryptoUtil.encrypt('secret data');
 const decrypted = CryptoUtil.decrypt(encrypted);
 ```
+
+---
+
+## 🛡 CSRF Protection
+
+The API includes built-in CSRF (Cross-Site Request Forgery) protection using the modern **Double Submit Cookie** pattern.
+
+### Configuration
+- **`CSRF_ENABLE`**: Set to `true` to enable global CSRF protection.
+- **`CSRF_SECRET`**: A secret key used to sign the CSRF cookie.
+
+### How it Works
+1.  **Token Fetching**: Clients must first perform a `GET` request to `/csrf-token`. The server responds with a token in the `data` field and sets an HTTP-only cookie.
+2.  **State-Changing Requests**: For all `POST`, `PUT`, `PATCH`, and `DELETE` requests, the client must include the token in the `x-csrf-token` header.
+3.  **Validation**: The server compares the header token with the cookie token. If they don't match or are missing, a `403 Forbidden` error is returned.
+
+### Implementation Details
+- Uses `csrf-csrf` and `cookie-parser`.
+- Cookie name: `ps-csrf` (customizable).
+- Header name: `x-csrf-token`.
 
 ---
 

@@ -31,6 +31,13 @@ const envSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
+
+  CSRF_ENABLE: Joi.boolean().default(false),
+  CSRF_SECRET: Joi.string().when('CSRF_ENABLE', {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
 })
   .unknown()
   .required();
@@ -49,6 +56,8 @@ export const config = {
     basePath: envVars.APP_BASE_PATH,
     encrypt: envVars.ENCRYPT,
     encryptionKey: envVars.ENCRYPTION_KEY,
+    csrfEnable: envVars.CSRF_ENABLE,
+    csrfSecret: envVars.CSRF_SECRET,
   },
   nodeEnv: envVars.NODE_ENV,
   logLevel: envVars.LOG_LEVEL,

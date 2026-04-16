@@ -10,6 +10,12 @@ export const encryptionMiddleware = (req: Request, res: Response, next: NextFunc
     return next();
   }
 
+  // Exclude specific routes from encryption (e.g., health check, csrf token)
+  const excludedRoutes = ['/health', '/csrf-token'];
+  if (excludedRoutes.some(route => req.path.endsWith(route))) {
+    return next();
+  }
+
   // 1. Decrypt incoming request body if it's encrypted
   if (req.body && typeof req.body === 'object' && req.body.data) {
     try {
