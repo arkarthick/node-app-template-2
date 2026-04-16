@@ -1,3 +1,5 @@
+import { ApiResponse } from '../utils/api-response';
+import { ResponseCode } from '../constants/response-codes';
 import { NextFunction, Request, Response } from 'express';
 import { Schema } from 'joi';
 
@@ -17,11 +19,7 @@ export const validate = (schema: Schema) => {
         message: d.message,
         path: d.path,
       }));
-      return res.status(400).json({
-        status: 'error',
-        message: 'Validation failed',
-        details,
-      });
+      return ApiResponse.error(res, 'Validation failed', 400, ResponseCode.VALIDATION_ERROR, details);
     }
 
     // Replace req data with validated data (stripped of unknown fields)

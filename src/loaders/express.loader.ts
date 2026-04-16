@@ -7,6 +7,8 @@ import { buildRoutes } from '../routes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from '../docs/swagger';
 import { config } from '../config/env';
+import { ApiResponse } from '../common/utils/api-response';
+import { ResponseCode } from '../common/constants/response-codes';
 
 export const initExpress = (app: Application) => {
   // Global Middleware
@@ -20,7 +22,7 @@ export const initExpress = (app: Application) => {
 
   // Health check
   app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+    ApiResponse.success(res, { timestamp: new Date().toISOString() }, 'Server is healthy');
   });
 
   // Swagger Documentation
@@ -28,6 +30,11 @@ export const initExpress = (app: Application) => {
 
   // Routes
   app.use('/' + config.app.basePath + '/api', buildRoutes());
+
+  // 404 Handler
+  app.use((req, res) => {
+    ApiResponse.error(res, `Route ${req.originalUrl} not found`, 404, ResponseCode.NOT_FOUND);
+  });
 
   // Error Handling (Must be last)
   app.use(errorMiddleware);

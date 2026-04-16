@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { CreateUserUseCase } from './usecase/createUser.usecase';
 import { GetUserUseCase } from './usecase/getUser.usecase';
+import { ApiResponse } from '../../../common/utils/api-response';
+import { ResponseCode } from '../../../common/constants/response-codes';
 
 export class UserController {
   constructor(
@@ -11,7 +13,7 @@ export class UserController {
   createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await this.createUserUseCase.execute(req.body);
-      res.status(201).json(user);
+      return ApiResponse.success(res, user, 'User created successfully', 201, ResponseCode.CREATED);
     } catch (error) {
       next(error);
     }
@@ -20,7 +22,7 @@ export class UserController {
   getUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await this.getUserUseCase.execute(req.params.id as string);
-      res.status(200).json(user);
+      return ApiResponse.success(res, user, 'User retrieved successfully');
     } catch (error) {
       next(error);
     }
