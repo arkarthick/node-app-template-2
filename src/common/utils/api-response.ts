@@ -24,7 +24,8 @@ export class ApiResponse {
     });
   }
 
-  static success<T>(res: Response, data: T, message = 'Success', statusCode = 200, code = ResponseCode.SUCCESS) {
+  static success<T>(res: Response, options: { data: T; message?: string; statusCode?: number; code?: ResponseCode | string }) {
+    const { data, message = 'Success', statusCode = 200, code = ResponseCode.SUCCESS } = options;
     return this.send(res, {
       statusCode,
       code,
@@ -33,7 +34,8 @@ export class ApiResponse {
     });
   }
 
-  static error(res: Response, message: string, statusCode = 500, code = ResponseCode.INTERNAL_SERVER_ERROR, data?: any) {
+  static error(res: Response, options: { message: string; statusCode?: number; code?: ResponseCode | string; data?: any }) {
+    const { message, statusCode = 500, code = ResponseCode.INTERNAL_SERVER_ERROR, data } = options;
     return this.send(res, {
       statusCode,
       code,

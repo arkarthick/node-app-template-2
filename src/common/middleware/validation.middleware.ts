@@ -19,7 +19,12 @@ export const validate = (schema: Schema) => {
         message: d.message,
         path: d.path,
       }));
-      return ApiResponse.error(res, 'Validation failed', 400, ResponseCode.VALIDATION_ERROR, details);
+      return ApiResponse.error(res, {
+        message: 'Validation failed',
+        statusCode: 400,
+        code: ResponseCode.VALIDATION_ERROR,
+        data: details,
+      });
     }
 
     // Replace req data with validated data (stripped of unknown fields)

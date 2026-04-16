@@ -22,7 +22,10 @@ export const initExpress = (app: Application) => {
 
   // Health check
   app.get('/health', (req, res) => {
-    ApiResponse.success(res, { timestamp: new Date().toISOString() }, 'Server is healthy');
+    ApiResponse.success(res, {
+      data: { timestamp: new Date().toISOString() },
+      message: 'Server is healthy',
+    });
   });
 
   // Swagger Documentation
@@ -33,7 +36,11 @@ export const initExpress = (app: Application) => {
 
   // 404 Handler
   app.use((req, res) => {
-    ApiResponse.error(res, `Route ${req.originalUrl} not found`, 404, ResponseCode.NOT_FOUND);
+    ApiResponse.error(res, {
+      message: `Route ${req.originalUrl} not found`,
+      statusCode: 404,
+      code: ResponseCode.NOT_FOUND,
+    });
   });
 
   // Error Handling (Must be last)
