@@ -86,15 +86,37 @@ ApiResponse.error(res, {
 2. CORS (`cors`).
 3. Request Context (`requestContextMiddleware`): Generates `requestId` and stores context in `AsyncLocalStorage`.
 4. Logging (`loggingMiddleware`): Logs incoming requests and response times.
-5. Routes: Version-prefixed routes.
-6. 404 Handler: Catches unknown routes and returns a structured "NOT_FOUND" response.
-7. Error Handler (`errorMiddleware`): Catches all exceptions and returns a structured "INTERNAL_SERVER_ERROR".
+5. API Encryption (`encryptionMiddleware`): Handles transparent request decryption and response encryption (if enabled).
+6. Routes: Version-prefixed routes.
+7. 404 Handler: Catches unknown routes and returns a structured "NOT_FOUND" response.
+8. Error Handler (`errorMiddleware`): Catches all exceptions and returns a structured "INTERNAL_SERVER_ERROR".
 
 ### Request Validation
 Use the `validate` middleware located in `src/common/middleware/validation.middleware.ts` with Joi schemas.
 
 ```typescript
 router.post('/', validate(createUserSchema), controller.createUser);
+```
+
+## 🔐 API Encryption Layer
+
+The application features a built-in encryption layer for request and response bodies using **AES-256-CBC**.
+
+### Configuration
+- **`ENCRYPT`**: Set to `true` to enable global encryption.
+- **`ENCRYPTION_KEY`**: A secure string used as the master key (hashed to 32 bytes internally).
+
+### How it Works
+1.  **Incoming Requests**: If encryption is enabled, the middleware looks for a `data` field in the request body (e.g., `{ "data": "iv:encrypted_text" }`). It decrypts the content and replaces `req.body` with the decrypted JSON object.
+2.  **Outgoing Responses**: If encryption is enabled, all successful responses (except specifically excluded ones) are automatically encrypted. The response will have a custom header `x-api-encrypted: true` and a body format of `{ "data": "iv:encrypted_text" }`.
+
+### 🛠 Using the Crypto Utility
+While the middleware handles most cases automatically, you can use the `CryptoUtil` directly:
+```typescript
+import { CryptoUtil } from '../common/utils/crypto.util';
+
+const encrypted = CryptoUtil.encrypt('secret data');
+const decrypted = CryptoUtil.decrypt(encrypted);
 ```
 
 ---

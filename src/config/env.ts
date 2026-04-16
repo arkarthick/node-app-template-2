@@ -24,6 +24,13 @@ const envSchema = Joi.object({
   CAMUNDA_CLUSTER_ID: Joi.string().optional().empty(''),
   CAMUNDA_CLIENT_ID: Joi.string().optional().empty(''),
   CAMUNDA_CLIENT_SECRET: Joi.string().optional().empty(''),
+
+  ENCRYPT: Joi.boolean().default(false),
+  ENCRYPTION_KEY: Joi.string().when('ENCRYPT', {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
 })
   .unknown()
   .required();
@@ -40,6 +47,8 @@ export const config = {
     port: envVars.APP_PORT,
     name: envVars.APP_NAME,
     basePath: envVars.APP_BASE_PATH,
+    encrypt: envVars.ENCRYPT,
+    encryptionKey: envVars.ENCRYPTION_KEY,
   },
   nodeEnv: envVars.NODE_ENV,
   logLevel: envVars.LOG_LEVEL,

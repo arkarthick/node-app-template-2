@@ -4,6 +4,7 @@ import { requestContextMiddleware } from '../common/middleware/request-context.m
 import { loggingMiddleware } from '../common/middleware/logging.middleware';
 import { errorMiddleware } from '../common/middleware/error.middleware';
 import { buildRoutes } from '../routes';
+import { encryptionMiddleware } from '../common/middleware/encryption.middleware';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from '../docs/swagger';
 import { config } from '../config/env';
@@ -16,9 +17,10 @@ export const initExpress = (app: Application) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
 
-  // Context & Logging
+  // Context, Logging & Encryption
   app.use(requestContextMiddleware);
   app.use(loggingMiddleware);
+  app.use(encryptionMiddleware);
 
   // Health check
   app.get('/health', (req, res) => {
