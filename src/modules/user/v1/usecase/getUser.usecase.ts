@@ -1,7 +1,7 @@
-import { UserDTO } from '../user.dto';
-import { UserRepository } from '../user.repository';
-import { AppError } from '../../../../common/middleware/error.middleware';
-import { ResponseCode } from '../../../../common/constants/response-codes';
+import { UserDTO } from '@/modules/user/v1/user.dto';
+import { UserRepository } from '@/modules/user/v1/user.repository';
+import { AppError } from '@/common/middleware/error.middleware';
+import { ResponseCode } from '@/common/constants/response-codes';
 
 export class GetUserUseCase {
   constructor(private userRepository: UserRepository) { }

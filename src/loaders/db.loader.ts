@@ -1,5 +1,5 @@
-import { db } from '../infrastructure/database/drizzle/client';
-import { logger } from '../config/logger';
+import { db } from '@/infrastructure/database/drizzle/client';
+import { logger } from '@/config/logger';
 import { sql } from 'drizzle-orm';
 
 export const initDb = async () => {

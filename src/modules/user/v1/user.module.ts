@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserController } from './user.controller';
 import { userRepository } from './user.repository';
-import { auditService } from '../../../infrastructure/audit/audit.service';
+import { auditService } from '@/infrastructure/audit/audit.service';
 import { CreateUserUseCase } from './usecase/createUser.usecase';
 import { GetUserUseCase } from './usecase/getUser.usecase';
 import { buildUserRoutes } from './user.routes';

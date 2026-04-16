@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { buildUserModule } from '../modules/user/v1/user.module';
+import { buildUserModule } from '@/modules/user/v1/user.module';
 
 export const buildRoutes = (): Router => {
   const router = Router();

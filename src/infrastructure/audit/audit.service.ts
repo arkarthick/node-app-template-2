@@ -1,5 +1,5 @@
-import { getRequestContext } from '../../common/middleware/request-context.middleware';
-import { auditRepository } from './audit.repository';
+import { getRequestContext } from '@/common/middleware/request-context.middleware';
+import { auditRepository } from '@/infrastructure/audit/audit.repository';
 
 export interface AuditLogOptions {
   entityType: string;

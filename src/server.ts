@@ -1,7 +1,7 @@
-import { createApp } from './app';
-import { config } from './config/env';
-import { logger } from './config/logger';
-import { initDb } from './loaders/db.loader';
+import { createApp } from '@/app';
+import { config } from '@/config/env';
+import { logger } from '@/config/logger';
+import { initDb } from '@/loaders/db.loader';
 
 const startServer = async () => {
   try {

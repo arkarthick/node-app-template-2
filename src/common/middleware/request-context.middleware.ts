@@ -2,10 +2,10 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import { NextFunction, Request, Response } from 'express';
 
 export interface RequestContext {
-  userId?: string;
+  userId?: string | undefined;
   requestId: string;
   ipAddress: string;
-  userAgent?: string;
+  userAgent?: string | undefined;
 }
 
 export const requestContextStore = new AsyncLocalStorage<RequestContext>();

@@ -1,8 +1,8 @@
-import { db } from '../database/drizzle/client';
-import { auditLogs } from '../database/drizzle/schema';
+import { db } from '@/infrastructure/database/drizzle/client';
+import { auditLogs, NewAuditLog } from '@/infrastructure/database/drizzle/schema';
 
 export class AuditRepository {
-  async create(data: typeof auditLogs.$inferInsert) {
+  async create(data: NewAuditLog) {
     await db.insert(auditLogs).values(data);
   }
 }

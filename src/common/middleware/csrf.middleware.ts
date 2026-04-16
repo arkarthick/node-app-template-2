@@ -1,8 +1,8 @@
 import { doubleCsrf } from 'csrf-csrf';
 import { Request, Response, NextFunction } from 'express';
-import { config } from '../../config/env';
-import { ApiResponse } from '../utils/api-response';
-import { ResponseCode } from '../constants/response-codes';
+import { config } from '@/config/env';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
 
 const doubleCsrfConfig = doubleCsrf({
   getSecret: () => config.app.csrfSecret || 'default-secret-change-me',
@@ -24,7 +24,7 @@ const doubleCsrfConfig = doubleCsrf({
 });
 
 export const generateToken = (req: Request, res: Response) => doubleCsrfConfig.generateCsrfToken(req, res);
-export const invalidCsrfTokenError = doubleCsrfConfig.invalidCsrfTokenError;
+const invalidCsrfTokenError = doubleCsrfConfig.invalidCsrfTokenError;
 
 /**
  * CSRF Protection Middleware

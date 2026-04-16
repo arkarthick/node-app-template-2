@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { config } from '../../config/env';
-import { CryptoUtil } from '../utils/crypto.util';
-import { logger } from '../../config/logger';
-import { ApiResponse } from '../utils/api-response';
-import { ResponseCode } from '../constants/response-codes';
+import { config } from '@/config/env';
+import { CryptoUtil } from '@/common/utils/crypto.util';
+import { logger } from '@/config/logger';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
 
 export const encryptionMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (!config.app.encrypt) {

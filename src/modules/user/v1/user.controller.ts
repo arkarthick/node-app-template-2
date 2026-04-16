@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { CreateUserUseCase } from './usecase/createUser.usecase';
 import { GetUserUseCase } from './usecase/getUser.usecase';
-import { ApiResponse } from '../../../common/utils/api-response';
-import { ResponseCode } from '../../../common/constants/response-codes';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
 
 export class UserController {
   constructor(

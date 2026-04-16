@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { db } from '../../../infrastructure/database/drizzle/client';
-import { users } from '../../../infrastructure/database/drizzle/schema';
+import { db } from '@/infrastructure/database/drizzle/client';
+import { users, User, NewUser } from '@/infrastructure/database/drizzle/schema';
 import { CreateUserDTO } from './user.dto';
 
 export class UserRepository {

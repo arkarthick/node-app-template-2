@@ -1,7 +1,7 @@
-import { CreateUserDTO, UserDTO } from '../user.dto';
-import { UserRepository } from '../user.repository';
-import { AuditService } from '../../../../infrastructure/audit/audit.service';
-import { AppError } from '../../../../common/middleware/error.middleware';
+import { CreateUserDTO, UserDTO } from '@/modules/user/v1/user.dto';
+import { UserRepository } from '@/modules/user/v1/user.repository';
+import { AuditService } from '@/infrastructure/audit/audit.service';
+import { AppError } from '@/common/middleware/error.middleware';
 
 export class CreateUserUseCase {
   constructor(

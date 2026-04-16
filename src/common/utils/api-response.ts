@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { ResponseCode } from '../constants/response-codes';
-import { config } from '../../config/env';
+import { ResponseCode } from '@/common/constants/response-codes';
+import { config } from '@/config/env';
 
 export interface ApiResponseOptions<T> {
   statusCode: number;

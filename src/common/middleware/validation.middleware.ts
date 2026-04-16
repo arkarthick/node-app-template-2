@@ -1,5 +1,5 @@
-import { ApiResponse } from '../utils/api-response';
-import { ResponseCode } from '../constants/response-codes';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
 import { NextFunction, Request, Response } from 'express';
 import { Schema } from 'joi';
 

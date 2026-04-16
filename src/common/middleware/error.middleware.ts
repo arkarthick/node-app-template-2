@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { logger } from '../../config/logger';
-import { ApiResponse } from '../utils/api-response';
-import { ResponseCode } from '../constants/response-codes';
+import { logger } from '@/config/logger';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
 
 export interface AppError extends Error {
   statusCode?: number;

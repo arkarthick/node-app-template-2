@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { logger } from '../../config/logger';
+import { logger } from '@/config/logger';
 
 // In-memory store for idempotency (Replace with Redis in production)
 const idempotencyStore = new Map<string, { statusCode: number; body: any }>();

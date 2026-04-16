@@ -20,3 +20,8 @@ export const auditLogs = pgTable('audit_logs', {
   metadata: jsonb('metadata'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type AuditLog = typeof auditLogs.$inferSelect;
+export type NewAuditLog = typeof auditLogs.$inferInsert;

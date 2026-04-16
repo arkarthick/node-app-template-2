@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { UserController } from './user.controller';
-import { validate } from '../../../common/middleware/validation.middleware';
-import { createUserSchema, getUserSchema } from './user.validation';
+import { UserController } from '@/modules/user/v1/user.controller';
+import { validate } from '@/common/middleware/validation.middleware';
+import { createUserSchema, getUserSchema } from '@/modules/user/v1/user.validation';
 
 export const buildUserRoutes = (controller: UserController): Router => {
   const router = Router();
