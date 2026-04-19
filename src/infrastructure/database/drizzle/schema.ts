@@ -4,9 +4,22 @@ export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   fullName: varchar('full_name', { length: 255 }).notNull(),
-  password: text('password').notNull(),
+  password: text('password'), // Nullable for SSO users
+  provider: varchar('provider', { length: 50 }).default('local'),
+  providerId: varchar('provider_id', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const refreshTokens = pgTable('refresh_tokens', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id')
+    .references(() => users.id, { onDelete: 'cascade' })
+    .notNull(),
+  token: text('token').notNull(),
+  expiresAt: timestamp('expires_at').notNull(),
+  revokedAt: timestamp('revoked_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 export const auditLogs = pgTable('audit_logs', {
@@ -23,5 +36,7 @@ export const auditLogs = pgTable('audit_logs', {
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type RefreshToken = typeof refreshTokens.$inferSelect;
+export type NewRefreshToken = typeof refreshTokens.$inferInsert;
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type NewAuditLog = typeof auditLogs.$inferInsert;

@@ -3,6 +3,8 @@ import { UserRepository } from '@/modules/user/v1/user.repository';
 import { AuditService } from '@/infrastructure/audit/audit.service';
 import { AppError } from '@/common/middleware/error.middleware';
 
+import bcrypt from 'bcryptjs';
+
 export class CreateUserUseCase {
   constructor(
     private userRepository: UserRepository,
@@ -18,7 +20,13 @@ export class CreateUserUseCase {
       throw error;
     }
 
-    const user = await this.userRepository.create(data);
+    // Hash password if provided (it should be for local strategy)
+    const hashedData = { ...data };
+    if (data.password) {
+      hashedData.password = await bcrypt.hash(data.password, 10);
+    }
+
+    const user = await this.userRepository.create(hashedData);
     if (!user) {
       throw new Error('Failed to create user');
     }

@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { db } from '@/infrastructure/database/drizzle/client';
 import { users, User, NewUser } from '@/infrastructure/database/drizzle/schema';
 import { CreateUserDTO } from './user.dto';
@@ -16,6 +16,14 @@ export class UserRepository {
 
   async findById(id: string) {
     const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async findByProvider(provider: string, providerId: string) {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.provider, provider), eq(users.providerId, providerId)));
     return user;
   }
 }

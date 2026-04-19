@@ -19,10 +19,12 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.6.0",
     "@types/pg": "^8.20.0",
     "@types/swagger-jsdoc": "^6.0.4",
@@ -42,6 +44,7 @@
     "typescript-eslint": "^8.58.2"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "csrf-csrf": "^4.0.3",
@@ -49,6 +52,7 @@
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
     "joi": "^18.1.2",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "pino": "^10.3.1",
     "pino-http": "^11.0.0",

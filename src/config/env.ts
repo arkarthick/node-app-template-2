@@ -38,6 +38,16 @@ const envSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
+
+  AUTH_PROVIDER: Joi.string().valid('JWT', 'Keycloak').default('JWT'),
+  ACCESS_TOKEN_SECRET: Joi.string().required(),
+  ACCESS_TOKEN_EXPIRY: Joi.string().default('15m'),
+  REFRESH_TOKEN_SECRET: Joi.string().required(),
+  REFRESH_TOKEN_EXPIRY: Joi.string().default('7d'),
+
+  KEYCLOAK_REALM: Joi.string().optional(),
+  KEYCLOAK_CLIENT_ID: Joi.string().optional(),
+  KEYCLOAK_AUTH_SERVER_URL: Joi.string().optional(),
 })
   .unknown()
   .required();
@@ -58,6 +68,20 @@ export const config = {
     encryptionKey: envVars.ENCRYPTION_KEY,
     csrfEnable: envVars.CSRF_ENABLE,
     csrfSecret: envVars.CSRF_SECRET,
+  },
+  auth: {
+    provider: envVars.AUTH_PROVIDER as 'JWT' | 'Keycloak',
+    jwt: {
+      accessSecret: envVars.ACCESS_TOKEN_SECRET,
+      accessExpiry: envVars.ACCESS_TOKEN_EXPIRY,
+      refreshSecret: envVars.REFRESH_TOKEN_SECRET,
+      refreshExpiry: envVars.REFRESH_TOKEN_EXPIRY,
+    },
+    keycloak: {
+      realm: envVars.KEYCLOAK_REALM,
+      clientId: envVars.KEYCLOAK_CLIENT_ID,
+      authServerUrl: envVars.KEYCLOAK_AUTH_SERVER_URL,
+    },
   },
   nodeEnv: envVars.NODE_ENV,
   logLevel: envVars.LOG_LEVEL,
