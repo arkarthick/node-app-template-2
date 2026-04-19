@@ -3,6 +3,7 @@ import { LoginUseCase } from './usecase/login.usecase';
 import { RefreshTokenUseCase } from './usecase/refreshToken.usecase';
 import { LogoutUseCase } from './usecase/logout.usecase';
 import { KeycloakLoginUseCase } from './usecase/keycloakLogin.usecase';
+import { KeycloakBackchannelLogoutUseCase } from './usecase/keycloakBackchannelLogout.usecase';
 import { ApiResponse } from '@/common/utils/api-response';
 import { config } from '@/config/env';
 
@@ -12,6 +13,7 @@ export class AuthController {
     private refreshTokenUseCase: RefreshTokenUseCase,
     private logoutUseCase: LogoutUseCase,
     private keycloakLoginUseCase: KeycloakLoginUseCase,
+    private keycloakBackchannelLogoutUseCase: KeycloakBackchannelLogoutUseCase,
   ) { }
 
   login = async (req: Request, res: Response, next: NextFunction) => {
@@ -51,6 +53,19 @@ export class AuthController {
       const { token } = req.body;
       const result = await this.keycloakLoginUseCase.execute(token);
       this.sendTokenResponse(res, result, 'SSO Login successful');
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  keycloakBackchannelLogout = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const logoutToken = req.body.logout_token;
+      if (!logoutToken) {
+        return res.status(400).send('Logout token missing');
+      }
+      await this.keycloakBackchannelLogoutUseCase.execute(logoutToken);
+      return res.status(200).send('Logout processed');
     } catch (error) {
       next(error);
     }

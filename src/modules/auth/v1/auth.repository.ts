@@ -1,6 +1,6 @@
 import { eq, and, gt } from 'drizzle-orm';
 import { db } from '@/infrastructure/database/drizzle/client';
-import { refreshTokens, NewRefreshToken } from '@/infrastructure/database/drizzle/schema';
+import { refreshTokens, NewRefreshToken, users } from '@/infrastructure/database/drizzle/schema';
 
 export class AuthRepository {
   async createRefreshToken(data: NewRefreshToken) {
@@ -34,6 +34,14 @@ export class AuthRepository {
       .update(refreshTokens)
       .set({ revokedAt: new Date() })
       .where(eq(refreshTokens.userId, userId));
+  }
+
+  async findByProviderId(provider: string, providerId: string) {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.provider, provider), eq(users.providerId, providerId)));
+    return user;
   }
 }
 

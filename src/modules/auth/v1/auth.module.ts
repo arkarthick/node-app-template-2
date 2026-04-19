@@ -8,6 +8,7 @@ import { userRepository } from '@/modules/user/v1/user.repository';
 import { authRepository } from './auth.repository';
 import { authService } from './auth.service';
 import { auditService } from '@/infrastructure/audit/audit.service';
+import { KeycloakBackchannelLogoutUseCase } from './usecase/keycloakBackchannelLogout.usecase';
 import { buildAuthRoutes } from './auth.routes';
 
 export const buildAuthModule = (): Router => {
@@ -21,12 +22,19 @@ export const buildAuthModule = (): Router => {
     authService,
     auditService,
   );
+  const keycloakBackchannelLogoutUseCase = new KeycloakBackchannelLogoutUseCase(
+    userRepository,
+    authRepository,
+    authService,
+    auditService,
+  );
 
   const authController = new AuthController(
     loginUseCase,
     refreshTokenUseCase,
     logoutUseCase,
     keycloakLoginUseCase,
+    keycloakBackchannelLogoutUseCase,
   );
 
   return buildAuthRoutes(authController);
