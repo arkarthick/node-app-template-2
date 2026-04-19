@@ -23,7 +23,8 @@ const doubleCsrfConfig = doubleCsrf({
   },
 });
 
-export const generateToken = (req: Request, res: Response) => doubleCsrfConfig.generateCsrfToken(req, res);
+export const generateToken = (req: Request, res: Response) =>
+  doubleCsrfConfig.generateCsrfToken(req, res);
 const invalidCsrfTokenError = doubleCsrfConfig.invalidCsrfTokenError;
 
 /**

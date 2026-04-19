@@ -14,7 +14,7 @@ export class AuthController {
     private logoutUseCase: LogoutUseCase,
     private keycloakLoginUseCase: KeycloakLoginUseCase,
     private keycloakBackchannelLogoutUseCase: KeycloakBackchannelLogoutUseCase,
-  ) { }
+  ) {}
 
   login = async (req: Request, res: Response, next: NextFunction) => {
     try {

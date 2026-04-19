@@ -8,7 +8,7 @@ export class UserController {
   constructor(
     private createUserUseCase: CreateUserUseCase,
     private getUserUseCase: GetUserUseCase,
-  ) { }
+  ) {}
 
   createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {

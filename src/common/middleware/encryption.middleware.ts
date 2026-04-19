@@ -12,7 +12,7 @@ export const encryptionMiddleware = (req: Request, res: Response, next: NextFunc
 
   // Exclude specific routes from encryption (e.g., health check, csrf token)
   const excludedRoutes = ['/health', '/csrf-token'];
-  if (excludedRoutes.some(route => req.path.endsWith(route))) {
+  if (excludedRoutes.some((route) => req.path.endsWith(route))) {
     return next();
   }
 
@@ -40,16 +40,16 @@ export const encryptionMiddleware = (req: Request, res: Response, next: NextFunc
       try {
         const jsonString = JSON.stringify(body);
         const encryptedData = CryptoUtil.encrypt(jsonString);
-        
+
         res.setHeader('x-api-encrypted', 'true');
-        
+
         // Wrap the encrypted data in the standard format
         return originalJson.call(this, { data: encryptedData });
       } catch (error) {
         logger.error({ error }, 'Failed to encrypt response body');
-        // If encryption fails, we should probably still send the original response 
-        // but log the failure, or send an error. 
-        // Safety first: send the original to avoid breaking the app, 
+        // If encryption fails, we should probably still send the original response
+        // but log the failure, or send an error.
+        // Safety first: send the original to avoid breaking the app,
         // but in a strict production env, you might want to send a 500.
       }
     }

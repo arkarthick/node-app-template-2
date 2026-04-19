@@ -16,7 +16,7 @@ export class AuthRepository {
         and(
           eq(refreshTokens.token, token),
           gt(refreshTokens.expiresAt, new Date()),
-          eq(refreshTokens.revokedAt, null as any)
+          eq(refreshTokens.revokedAt, null as any),
         ),
       );
     return refreshToken;

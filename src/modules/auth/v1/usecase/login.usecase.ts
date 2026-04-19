@@ -1,9 +1,9 @@
-import { LoginDTO, AuthResponseDTO } from '../auth.dto';
 import { UserRepository } from '@/modules/user/v1/user.repository';
-import { AuthRepository } from '../auth.repository';
-import { AuthService } from '../auth.service';
 import { AppError } from '@/common/middleware/error.middleware';
 import { AuditService } from '@/infrastructure/audit/audit.service';
+import { AuthRepository } from '@/modules/auth/v1/auth.repository';
+import { AuthService } from '@/modules/auth/v1/auth.service';
+import { AuthResponseDTO, LoginDTO } from '@/modules/auth/v1/auth.dto';
 
 export class LoginUseCase {
   constructor(
@@ -11,7 +11,7 @@ export class LoginUseCase {
     private authRepository: AuthRepository,
     private authService: AuthService,
     private auditService: AuditService,
-  ) { }
+  ) {}
 
   async execute(data: LoginDTO): Promise<AuthResponseDTO> {
     const user = await this.userRepository.findByEmail(data.email);

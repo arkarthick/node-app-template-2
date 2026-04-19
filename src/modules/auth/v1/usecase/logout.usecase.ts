@@ -1,7 +1,7 @@
-import { AuthRepository } from '../auth.repository';
+import { AuthRepository } from '@/modules/auth/v1/auth.repository';
 
 export class LogoutUseCase {
-  constructor(private authRepository: AuthRepository) { }
+  constructor(private authRepository: AuthRepository) {}
 
   async execute(refreshToken: string): Promise<void> {
     await this.authRepository.revokeRefreshToken(refreshToken);

@@ -9,7 +9,7 @@ export class CreateUserUseCase {
   constructor(
     private userRepository: UserRepository,
     private auditService: AuditService,
-  ) { }
+  ) {}
 
   async execute(data: CreateUserDTO): Promise<UserDTO> {
     // Business logic: check uniqueness

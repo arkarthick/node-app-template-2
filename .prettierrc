@@ -2,6 +2,5 @@
   "semi": true,
   "singleQuote": true,
   "printWidth": 100,
-  "tabWidth": 2,
-  "parser": "flow"
+  "tabWidth": 2
 }

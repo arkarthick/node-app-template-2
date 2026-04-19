@@ -4,7 +4,7 @@ import { AppError } from '@/common/middleware/error.middleware';
 import { ResponseCode } from '@/common/constants/response-codes';
 
 export class GetUserUseCase {
-  constructor(private userRepository: UserRepository) { }
+  constructor(private userRepository: UserRepository) {}
 
   async execute(id: string): Promise<UserDTO> {
     const user = await this.userRepository.findById(id);

@@ -1,8 +1,8 @@
-import { AuthResponseDTO } from '../auth.dto';
 import { UserRepository } from '@/modules/user/v1/user.repository';
-import { AuthRepository } from '../auth.repository';
-import { AuthService } from '../auth.service';
 import { AuditService } from '@/infrastructure/audit/audit.service';
+import { AuthRepository } from '@/modules/auth/v1/auth.repository';
+import { AuthService } from '@/modules/auth/v1/auth.service';
+import { AuthResponseDTO } from '@/modules/auth/v1/auth.dto';
 // In a real implementation, you would import an OIDC library like 'openid-client'
 // and verify the token against the Keycloak server.
 
@@ -12,7 +12,7 @@ export class KeycloakLoginUseCase {
     private authRepository: AuthRepository,
     private authService: AuthService,
     private auditService: AuditService,
-  ) { }
+  ) {}
 
   async execute(externalToken: string): Promise<AuthResponseDTO> {
     // 1. Verify externalToken with Keycloak

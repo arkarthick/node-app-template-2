@@ -1,22 +1,22 @@
-import { RefreshTokenDTO, AuthResponseDTO } from '../auth.dto';
 import { UserRepository } from '@/modules/user/v1/user.repository';
-import { AuthRepository } from '../auth.repository';
-import { AuthService } from '../auth.service';
 import { AppError } from '@/common/middleware/error.middleware';
+import { AuthRepository } from '@/modules/auth/v1/auth.repository';
+import { AuthService } from '@/modules/auth/v1/auth.service';
+import { AuthResponseDTO, RefreshTokenDTO } from '@/modules/auth/v1/auth.dto';
 
 export class RefreshTokenUseCase {
   constructor(
     private userRepository: UserRepository,
     private authRepository: AuthRepository,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   async execute(data: RefreshTokenDTO): Promise<AuthResponseDTO> {
     // 1. Verify token signature
     let decoded;
     try {
       decoded = this.authService.verifyRefreshToken(data.refreshToken);
-    } catch (err) {
+    } catch {
       const error = new Error('Invalid or expired refresh token') as AppError;
       error.statusCode = 401;
       throw error;
