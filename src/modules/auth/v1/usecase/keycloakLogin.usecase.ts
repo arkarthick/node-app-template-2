@@ -3,6 +3,7 @@ import { UserRepository } from '@/modules/user/v1/user.repository';
 import { AuthRepository } from '../auth.repository';
 import { AuthService } from '../auth.service';
 import { AuditService } from '@/infrastructure/audit/audit.service';
+import
 // In a real implementation, you would import an OIDC library like 'openid-client'
 // and verify the token against the Keycloak server.
 
@@ -14,31 +15,36 @@ export class KeycloakLoginUseCase {
     private auditService: AuditService,
   ) { }
 
-  async execute(_externalToken: string): Promise<AuthResponseDTO> {
+  async execute(externalToken: string): Promise<AuthResponseDTO> {
     // 1. Verify externalToken with Keycloak
     // This is a placeholder for the actual OIDC verification logic
-    const mockKeycloakData = {
-      email: 'sso-user@example.com',
-      fullName: 'SSO User',
-      providerId: 'keycloak-uuid',
+    const decodedToken = this.authService.verifyKeycloakToken(externalToken) as any;
+    if (!decodedToken) {
+      throw new Error('Invalid Keycloak token');
+    }
+
+    const keycloakData = {
+      email: decodedToken.email,
+      fullName: decodedToken.name || decodedToken.preferred_username,
+      providerId: decodedToken.sub, // This is the unique ID from Keycloak
     };
 
     // 2. Find or Create User in our system
-    let user = await this.userRepository.findByProvider('keycloak', mockKeycloakData.providerId);
+    let user = await this.userRepository.findByProvider('keycloak', keycloakData.providerId);
 
     if (!user) {
       // Check by email as well to link accounts
-      user = await this.userRepository.findByEmail(mockKeycloakData.email);
+      user = await this.userRepository.findByEmail(keycloakData.email);
       if (user) {
         // Update user with provider info (Optional: based on project policy)
       } else {
         // Create new user
         user = await this.userRepository.create({
-          email: mockKeycloakData.email,
-          fullName: mockKeycloakData.fullName,
+          email: keycloakData.email,
+          fullName: keycloakData.fullName,
           // password remains null for SSO users
           provider: 'keycloak',
-          providerId: mockKeycloakData.providerId,
+          providerId: keycloakData.providerId,
         } as any);
       }
     }

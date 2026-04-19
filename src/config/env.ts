@@ -48,6 +48,7 @@ const envSchema = Joi.object({
   KEYCLOAK_REALM: Joi.string().optional(),
   KEYCLOAK_CLIENT_ID: Joi.string().optional(),
   KEYCLOAK_AUTH_SERVER_URL: Joi.string().optional(),
+  KEYCLOAK_PUBLIC_KEY: Joi.string().optional(),
 })
   .unknown()
   .required();
@@ -81,6 +82,7 @@ export const config = {
       realm: envVars.KEYCLOAK_REALM,
       clientId: envVars.KEYCLOAK_CLIENT_ID,
       authServerUrl: envVars.KEYCLOAK_AUTH_SERVER_URL,
+      publicKey: envVars.KEYCLOAK_PUBLIC_KEY,
     },
   },
   nodeEnv: envVars.NODE_ENV,

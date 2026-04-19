@@ -32,6 +32,10 @@ export class AuthService {
     return bcrypt.compare(password, hash);
   }
 
+  async decodeToken(jwtToken: string): Promise<any> {
+    return jwt.decode(jwtToken);
+  }
+
   getRefreshTokenExpiry(): Date {
     // Parse expiry string (e.g., '7d', '15m')
     const match = config.auth.jwt.refreshExpiry.match(/^(\d+)([smhd])$/);
@@ -53,6 +57,13 @@ export class AuthService {
       default:
         return new Date(now + 7 * 24 * 60 * 60 * 1000);
     }
+  }
+
+  async verifyKeycloakToken(token: string) {
+    const publicKey = config.auth.keycloak.publicKey;
+    return jwt.verify(token, publicKey, {
+      issuer: config.auth.keycloak.authServerUrl + '/' + config.auth.keycloak.realm,
+    });
   }
 }
 
