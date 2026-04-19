@@ -11,6 +11,7 @@ export const buildUserRoutes = (controller: UserController): Router => {
    * @swagger
    * /v1/users:
    *   post:
+   *     tags: [User]
    *     summary: Create a new user
    *     requestBody:
    *       required: true
@@ -32,6 +33,7 @@ export const buildUserRoutes = (controller: UserController): Router => {
    * @swagger
    * /v1/users/{id}:
    *   get:
+   *     tags: [User]
    *     summary: Get a user by ID
    *     parameters:
    *       - in: path

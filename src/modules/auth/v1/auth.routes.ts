@@ -37,7 +37,7 @@ export const buildAuthRoutes = (authController: AuthController): Router => {
    * @swagger
    * /v1/auth/keycloak:
    *   post:
-   *     tags: [Auth]
+   *     tags: [Auth-Keycloak]
    *     summary: Login with Keycloak
    */
   router.post('/keycloak', validate(keycloakLoginSchema), authController.keycloakLogin);
@@ -46,7 +46,7 @@ export const buildAuthRoutes = (authController: AuthController): Router => {
    * @swagger
    * /v1/auth/keycloak/backchannel-logout:
    *   post:
-   *     tags: [Auth]
+   *     tags: [Auth-Keycloak]
    *     summary: Keycloak Backchannel Logout Webhook
    */
   router.post('/keycloak/backchannel-logout', authController.keycloakBackchannelLogout);

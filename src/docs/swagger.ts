@@ -12,7 +12,7 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: `http://localhost:${config.app.port}/${config.app.basePath}/api`,
+        url: `${config.app.host}:${config.app.port}/${config.app.basePath}api`,
         description: 'Local development server',
       },
     ],

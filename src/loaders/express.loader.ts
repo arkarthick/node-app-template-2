@@ -14,6 +14,8 @@ import { ApiResponse } from '@/common/utils/api-response';
 import { ResponseCode } from '@/common/constants/response-codes';
 
 export const initExpress = (app: Application) => {
+
+
   // Global Middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -50,7 +52,8 @@ export const initExpress = (app: Application) => {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Routes
-  app.use('/' + config.app.basePath + '/api', buildRoutes());
+  app.use('/' + config.app.basePath + 'api', buildRoutes());
+  console.info('Application path: ', '/' + config.app.basePath + 'api');
 
   // 404 Handler
   app.use((req, res) => {

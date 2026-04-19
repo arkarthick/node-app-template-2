@@ -5,7 +5,7 @@ const envSchema = Joi.object({
   APP_HOST: Joi.string().default('localhost'),
   APP_PORT: Joi.number().default(3000),
   APP_NAME: Joi.string().required(),
-  APP_BASE_PATH: Joi.string().required(),
+  APP_BASE_PATH: Joi.string().empty('').default(''),
 
   CORS_ORIGIN: Joi.string().required(),
   CORS_CREDENTIALS: Joi.boolean().required(),
@@ -64,7 +64,7 @@ export const config = {
     host: envVars.APP_HOST,
     port: envVars.APP_PORT,
     name: envVars.APP_NAME,
-    basePath: envVars.APP_BASE_PATH,
+    basePath: envVars.APP_BASE_PATH === '' ? '' : envVars.APP_BASE_PATH + '/',
     encrypt: envVars.ENCRYPT,
     encryptionKey: envVars.ENCRYPTION_KEY,
     csrfEnable: envVars.CSRF_ENABLE,
