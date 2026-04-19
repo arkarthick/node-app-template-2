@@ -49,6 +49,12 @@ const envSchema = Joi.object({
   KEYCLOAK_CLIENT_ID: Joi.string().optional(),
   KEYCLOAK_AUTH_SERVER_URL: Joi.string().optional(),
   KEYCLOAK_PUBLIC_KEY: Joi.string().optional(),
+
+  SWAGGER: Joi.boolean().default(false),
+  SWAGGER_PATH: Joi.string().default('/swagger'),
+  SWAGGER_TITLE: Joi.string().default('Node.js Production API Boilerplate'),
+  SWAGGER_VERSION: Joi.string().default('1.0.0'),
+  SWAGGER_DESCRIPTION: Joi.string().default('A production-grade REST API with strict architecture'),
 })
   .unknown()
   .required();
@@ -84,6 +90,13 @@ export const config = {
       authServerUrl: envVars.KEYCLOAK_AUTH_SERVER_URL,
       publicKey: envVars.KEYCLOAK_PUBLIC_KEY,
     },
+  },
+  swagger: {
+    enable: envVars.SWAGGER,
+    path: envVars.SWAGGER_PATH,
+    title: envVars.SWAGGER_TITLE,
+    version: envVars.SWAGGER_VERSION,
+    description: envVars.SWAGGER_DESCRIPTION,
   },
   nodeEnv: envVars.NODE_ENV,
   logLevel: envVars.LOG_LEVEL,

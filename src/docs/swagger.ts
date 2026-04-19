@@ -5,9 +5,9 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Node.js Production API Boilerplate',
-      version: '1.0.0',
-      description: 'A production-grade REST API with strict architecture',
+      title: config.swagger.title,
+      version: config.swagger.version,
+      description: config.swagger.description,
     },
     servers: [
       {

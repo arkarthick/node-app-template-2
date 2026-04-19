@@ -50,8 +50,10 @@ export const initExpress = (app: Application) => {
     });
   });
 
-  // Swagger Documentation
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  if (config.swagger.enable) {
+    // Swagger Documentation
+    app.use(config.swagger.path, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  }
 
   // Routes
   app.use('/' + config.app.basePath + 'api', buildRoutes());
