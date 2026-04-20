@@ -30,7 +30,19 @@ export const initExpress = (app: Application) => {
 
   if (config.nodeEnv === 'production') {
     app.use(encryptionMiddleware);
-    app.use(csrfProtection);
+
+    if (config.app.csrfEnable) {
+      app.use(csrfProtection);
+
+      // CSRF Token endpoint
+      app.get('/csrf-token', (req, res) => {
+        const token = generateToken(req, res);
+        ApiResponse.success(res, {
+          data: { token },
+          message: 'CSRF token generated successfully',
+        });
+      });
+    }
   }
 
   // Health check
@@ -38,15 +50,6 @@ export const initExpress = (app: Application) => {
     ApiResponse.success(res, {
       data: { timestamp: new Date().toISOString() },
       message: 'Server is healthy',
-    });
-  });
-
-  // CSRF Token endpoint
-  app.get('/csrf-token', (req, res) => {
-    const token = generateToken(req, res);
-    ApiResponse.success(res, {
-      data: { token },
-      message: 'CSRF token generated successfully',
     });
   });
 
