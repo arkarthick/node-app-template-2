@@ -1,0 +1,14 @@
+import { {{ModuleName}}Repository } from '../{{moduleName}}.repository';
+import { Create{{ModuleName}}DTO, {{ModuleName}}ResponseDTO } from '../{{moduleName}}.dto';
+
+export class {{ModuleName}}UseCase {
+  constructor(private {{camelModuleName}}Repository: {{ModuleName}}Repository) {}
+
+  async execute(data: Create{{ModuleName}}DTO): Promise<{{ModuleName}}ResponseDTO> {
+    // Business logic goes here
+    return {
+      id: 'generated-id',
+      name: data.name,
+    };
+  }
+}

@@ -1,0 +1,22 @@
+import { Router } from 'express';
+import { {{ModuleName}}Controller } from './{{moduleName}}.controller';
+import { validate } from '@/common/middleware/validation.middleware';
+import { create{{ModuleName}}Schema } from './{{moduleName}}.validation';
+
+export const build{{ModuleName}}Routes = (controller: {{ModuleName}}Controller): Router => {
+  const router = Router();
+
+  /**
+   * @swagger
+   * /{{version}}/{{moduleName}}s:
+   *   post:
+   *     tags: [{{ModuleName}}]
+   *     summary: Create a new {{moduleName}}
+   *     responses:
+   *       200:
+   *         description: Success
+   */
+  router.post('/', validate(create{{ModuleName}}Schema), controller.exampleMethod);
+
+  return router;
+};

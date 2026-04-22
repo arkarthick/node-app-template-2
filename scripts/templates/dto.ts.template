@@ -1,0 +1,9 @@
+export interface Create{{ModuleName}}DTO {
+  // Define properties
+  name: string;
+}
+
+export interface {{ModuleName}}ResponseDTO {
+  id: string;
+  name: string;
+}

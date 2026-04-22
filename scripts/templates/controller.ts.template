@@ -1,0 +1,22 @@
+import { Request, Response, NextFunction } from 'express';
+import { {{ModuleName}}UseCase } from './usecase/{{moduleName}}.usecase';
+import { ApiResponse } from '@/common/utils/api-response';
+import { ResponseCode } from '@/common/constants/response-codes';
+
+export class {{ModuleName}}Controller {
+  constructor(private {{camelModuleName}}UseCase: {{ModuleName}}UseCase) {}
+
+  exampleMethod = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.{{camelModuleName}}UseCase.execute(req.body);
+      return ApiResponse.success(res, {
+        data: result,
+        message: '{{ModuleName}} processed successfully',
+        statusCode: 200,
+        code: ResponseCode.SUCCESS,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+}

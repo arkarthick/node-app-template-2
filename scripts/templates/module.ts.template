@@ -1,0 +1,16 @@
+import { Router } from 'express';
+import { {{ModuleName}}Controller } from './{{moduleName}}.controller';
+import { {{camelModuleName}}Repository } from './{{moduleName}}.repository';
+import { {{ModuleName}}UseCase } from './usecase/{{moduleName}}.usecase';
+import { build{{ModuleName}}Routes } from './{{moduleName}}.routes';
+
+export const build{{ModuleName}}Module = (): Router => {
+  // UseCases
+  const {{camelModuleName}}UseCase = new {{ModuleName}}UseCase({{camelModuleName}}Repository);
+
+  // Controller
+  const {{camelModuleName}}Controller = new {{ModuleName}}Controller({{camelModuleName}}UseCase);
+
+  // Routes
+  return build{{ModuleName}}Routes({{camelModuleName}}Controller);
+};

@@ -1,0 +1,12 @@
+import { eq } from 'drizzle-orm';
+import { db } from '@/infrastructure/database/drizzle/client';
+// import { yourTable } from '@/infrastructure/database/drizzle/schema';
+
+export class {{ModuleName}}Repository {
+  async findById(id: string) {
+    // Implementation
+    return null;
+  }
+}
+
+export const {{camelModuleName}}Repository = new {{ModuleName}}Repository();
